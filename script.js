@@ -67,8 +67,11 @@ $(document).ready(function () {
     rowEl.append(buttonColEl);
 
     containerEl.append(rowEl);
-  }
+    buttonColEl.on("click", function() {
+        console.log("you clicked a button");
+  })
 
   //   }
   // }
-});
+  }
+})
