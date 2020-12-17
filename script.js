@@ -38,6 +38,7 @@ $(document).ready(function () {
 
   var arrayOfHours = [09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
+  
   for (i = 0; i < arrayOfHours.length; i++) {
     // create row
     var rowEl = $("<div>");
@@ -46,6 +47,12 @@ $(document).ready(function () {
     // create the column for time
     var timeColEl = $("<div>");
     timeColEl.addClass("col-sm-1 hour");
+    if (arrayOfHours[i] < 12) {
+        var amHours = arrayOfHours[i] + "AM";
+        timeColEl.append(amHours);
+    } else {
+        var pmHours = arrayOfHours[i-12] +"PM";
+    }
     rowEl.append(timeColEl);
 
     // create column for text
@@ -59,19 +66,39 @@ $(document).ready(function () {
     } else {
       textEl.addClass("col-sm-10 description future");
     }
-      rowEl.append(textEl);
-    
+    rowEl.append(textEl);
+
     // create column for save
     var buttonColEl = $("<button>");
     buttonColEl.addClass("col-1 saveBtn fas fa-save");
     rowEl.append(buttonColEl);
 
-    containerEl.append(rowEl);
-    buttonColEl.on("click", function() {
-        console.log("you clicked a button");
-  })
+    
 
-  //   }
-  // }
+    containerEl.append(rowEl);
+    buttonColEl.on("click", saveEvent);
+    console.log("you clicked a button");
+
+// assign textContent to what?
+// append textContent to textEl?
+
+    function saveEvent(event) {
+        event.preventDefault();
+  
+      var enteredEvents = getEvents();
+      //save the event to storage
+      localStorage.setItem("events", JSON.stringify(enteredEvents));
+
+
+    }
   }
-})
+
+  function getEvents() {
+    var workdayEvents = JSON.parse(localStorage.getItem("events"));
+    return workdayEvents;
+  }
+
+  getEvents();
+
+  
+});
