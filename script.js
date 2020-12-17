@@ -27,46 +27,48 @@
 
 $(document).ready(function () {
   console.log("Document is ready");
+
+  var hour = moment().format("HH");
+  console.log(hour);
+
+  var topDate = moment().format("dddd, MMMM Do");
+  $("#currentDay").append(topDate);
+
+  var containerEl = $(".container");
+
+  var arrayOfHours = [09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+  for (i = 0; i < arrayOfHours.length; i++) {
+    // create row
+    var rowEl = $("<div>");
+    rowEl.addClass("row time-block");
+
+    // create the column for time
+    var timeColEl = $("<div>");
+    timeColEl.addClass("col-sm-1 hour");
+    rowEl.append(timeColEl);
+
+    // create column for text
+    var textEl = $("<textarea>");
+
+    if (arrayOfHours[i] === hour) {
+      console.log("Time is present");
+      textEl.addClass("col-sm-10 description present");
+    } else if (arrayOfHours[i] < hour) {
+      textEl.addClass("col-sm-10 description past");
+    } else {
+      textEl.addClass("col-sm-10 description future");
+    }
+      rowEl.append(textEl);
+    
+    // create column for save
+    var buttonColEl = $("<button>");
+    buttonColEl.addClass("col-1 saveBtn fas fa-save");
+    rowEl.append(buttonColEl);
+
+    containerEl.append(rowEl);
+  }
+
+  //   }
+  // }
 });
-
-var topDate = moment().format("dddd, MMMM Do");
-$("#currentDay").append(topDate);
-
-var containerEl = $(".container");
-
-var arrayOfHours = [09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-
-for (i = 0; i < arrayOfHours.length; i++) {
-  // create row
-  var rowEl = $("<div>");
-  rowEl.addClass("row time-block");
-
-  // create the column for time
-  var timeColEl = $("<div>");
-  timeColEl.addClass("col-sm-1 hour");
-
-  if (arrayOfHours[i] === moment().hour()) {
-    console.log("Time is present");
-    $(timeColEl).addClass(".present");
-  } else if (arrayOfHours[i] < moment().hour()) {
-    $(timeColEl).addClass(".past");
-  } else {
-    $(timeColEl).addClass(".future");
-rowEl.append(timeColEl);
-}
-}
-
-// create column for text
-var textEl = $("<textarea>");
-textEl.addClass("col-sm-10 description");
-rowEl.append(textEl);
-
-// create column for save
-var buttonColEl = $("<button>");
-buttonColEl.addClass("col-1 saveBtn fas-fas-save");
-rowEl.append(buttonColEl);
-
-containerEl.append(rowEl);
-
-//   }
-// }
