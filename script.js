@@ -36,7 +36,8 @@ $(document).ready(function () {
 
   var containerEl = $(".container");
 
-  var arrayOfHours = [09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+  var arrayOfHours = [09, 10, 11, 12, 13, 14, 15, 16, 17];
+
 
   
   for (i = 0; i < arrayOfHours.length; i++) {
@@ -51,12 +52,13 @@ $(document).ready(function () {
         var amHours = arrayOfHours[i] + "AM";
         timeColEl.append(amHours);
     } else {
-        var pmHours = arrayOfHours[i-12] +"PM";
+        var pmHours = parseInt(arrayOfHours[i]) - 12 + "PM";
     }
     rowEl.append(timeColEl);
 
     // create column for text
     var textEl = $("<textarea>");
+    textEl.attr("id", "hour" + arrayOfHours[i]);
 
     if (arrayOfHours[i] === hour) {
       console.log("Time is present");
@@ -82,15 +84,22 @@ $(document).ready(function () {
 // assign textContent to what?
 // append textContent to textEl?
 
-    function saveEvent(event) {
-        event.preventDefault();
-  
-      var enteredEvents = getEvents();
-      //save the event to storage
-      localStorage.setItem("events", JSON.stringify(enteredEvents));
-
+    
 
     }
+  
+
+  function saveEvent(event) {
+    event.preventDefault();
+    console.log($(this).siblings(".hour").text());
+    console.log($(this).siblings(".description").val());
+    var hour = ($(this).siblings(".hour").text());
+    var userEntry = ($(this).siblings(".description").val());
+  localStorage.setItem(hour, userEntry);
+
+//   var enteredEvents = getEvents();
+//   //save the event to storage
+//   localStorage.setItem("events", JSON.stringify(enteredEvents));
   }
 
   function getEvents() {
@@ -99,6 +108,8 @@ $(document).ready(function () {
   }
 
   getEvents();
+
+  $("#hour9").val(localStorage.getItem("9AM"));
 
   
 });
