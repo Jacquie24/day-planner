@@ -67,13 +67,15 @@ $(document).ready(function () {
     var textEl = $("<textarea>");
     textEl.attr("id", "hour" + arrayOfHours[i]);
 
-    if (arrayOfHours[i] === hourDay) {
+    if (arrayOfHours[i] > hourDay) {
       console.log("Time is present");
-      textEl.addClass("col-sm-10 description present");
+      textEl.addClass("col-sm-10 description future");
+      
     } else if (arrayOfHours[i] < hourDay) {
       textEl.addClass("col-sm-10 description past");
     } else {
-      textEl.addClass("col-sm-10 description future");
+        textEl.addClass("col-sm-10 description present");
+
     }
     rowEl.append(textEl);
 
