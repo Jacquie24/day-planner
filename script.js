@@ -28,8 +28,8 @@
 $(document).ready(function () {
   console.log("Document is ready");
 
-  var hour = moment().format("HH");
-  console.log(hour);
+  var hourDay = moment().format("HH");
+  console.log(hourDay);
 
   var topDate = moment().format("dddd, MMMM Do");
   $("#currentDay").append(topDate);
@@ -51,8 +51,15 @@ $(document).ready(function () {
     if (arrayOfHours[i] < 12) {
         var amHours = arrayOfHours[i] + "AM";
         timeColEl.append(amHours);
+    } else if 
+        (arrayOfHours[i] === 12) {
+            var noonHour = "12PM"
+            timeColEl.append(noonHour);
+        
+    
     } else {
         var pmHours = parseInt(arrayOfHours[i]) - 12 + "PM";
+        timeColEl.append(pmHours);
     }
     rowEl.append(timeColEl);
 
@@ -60,10 +67,10 @@ $(document).ready(function () {
     var textEl = $("<textarea>");
     textEl.attr("id", "hour" + arrayOfHours[i]);
 
-    if (arrayOfHours[i] === hour) {
+    if (arrayOfHours[i] === hourDay) {
       console.log("Time is present");
       textEl.addClass("col-sm-10 description present");
-    } else if (arrayOfHours[i] < hour) {
+    } else if (arrayOfHours[i] < hourDay) {
       textEl.addClass("col-sm-10 description past");
     } else {
       textEl.addClass("col-sm-10 description future");
